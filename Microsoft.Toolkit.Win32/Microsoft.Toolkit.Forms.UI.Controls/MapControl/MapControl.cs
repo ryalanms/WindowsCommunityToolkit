@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Forms.UI.XamlHost;
@@ -35,6 +36,12 @@ namespace Microsoft.Toolkit.Forms.UI.Controls
         internal MapControl(string typeName)
             : base(typeName)
         {
+            // Return immediately if control is instantiated by the Visual Studio Designer
+            // https://stackoverflow.com/questions/1166226/detecting-design-mode-from-a-controls-constructor
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+            {
+                return;
+            }
         }
 
         protected override void OnHandleCreated(EventArgs e)

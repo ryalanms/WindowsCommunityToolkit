@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.ComponentModel;
 using Microsoft.Toolkit.Forms.UI.XamlHost;
 using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
 
@@ -32,6 +33,12 @@ namespace Microsoft.Toolkit.Forms.UI.Controls
         public SwapChainPanel(string typeName)
             : base(typeName)
         {
+            // Return immediately if control is instantiated by the Visual Studio Designer
+            // https://stackoverflow.com/questions/1166226/detecting-design-mode-from-a-controls-constructor
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+            {
+                return;
+            }
         }
 
         /// <summary>
